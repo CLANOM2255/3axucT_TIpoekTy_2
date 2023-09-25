@@ -1,0 +1,21 @@
+.upvote {
+    background-image: url(https://cdn3.emoji.gg/emojis/8750-like.png)
+}
+
+.downvote {
+    background-image: url(https://cdn3.emoji.gg/emojis/5216-like.png)
+}
+
+.votes {
+    width: 30px;
+    height: 30px;
+    background-size: 100%;
+    border-radius: 20px;
+    border: none;
+}
+
+.voteDiv {
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+}

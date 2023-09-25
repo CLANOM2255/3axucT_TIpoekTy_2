@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Main {% endblock %}
+
+{% block content %}
+    <style>
+
+   table.text  {
+    width:  100%;
+    border-spacing: 0;
+   }
+   table.text td {
+    width: 50%;
+    vertical-align: top;
+   }
+   td.rightcol {
+    text-align: right;
+   }
+  </style>
+  <table class="text">
+   <tr>
+    <td><h1>Розум.net</h1></td>
+    <td class="rightcol"><h3><a href="https://savelife.in.ua/donate/#donate-army-card-monthly">Преміум підписка</a></h3></td>
+   </tr>
+  </table>
+
+    {% include 'included/render_messages.html' %}
+
+    {% for question in questions %}
+        <div class="card mb-3">
+            <div class="card-body">
+                {% include 'included/render_single_question.html' %}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

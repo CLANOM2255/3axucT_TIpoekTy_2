@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card mb-3">
+        <div class="card-body d-flex flex-row">
+            <div class="voteDiv">
+                <form action="/question/upvote/{{ question.id }}">
+                    <button type="submit" class="votes upvote"></button>
+                </form>
+                <span>{{ question.get_rating }}</span>
+                <form action="/question/downvote/{{ question.id }}">
+                    <button type="submit" class="votes downvote"></button>
+                </form>
+            </div>
+            <div class="card-body">
+            <h5 class="card-title">{{ question.title }}</h5>
+            <p class="card-text">{{ question.text }}</p>
+            <p class="card-text">
+                <small class="text-muted">
+                    {{ question.author }} - {{ question.published_date }}
+                </small>
+                 {% if question.image %}
+                <br><img src="{{ question.image.image.url }}" class="img-fluid"/>
+                {% endif %}
+            </p>
+
+            {% for answer in answers %}
+            <div class="card mb-3 d-flex flex-row">
+                <div class="voteDiv">
+                    <form action="/answer/upvote/{{ answer.id }}">
+                        <button type="submit" class="votes upvote"></button>
+                    </form>
+                    <span>{{ answer.get_rating }}</span>
+                    <form action="/answer/downvote/{{ answer.id }}">
+                        <button type="submit" class="votes downvote"></button>
+                    </form>
+                </div>
+
+
+
+                <div class="card-body">
+                    <br><p class="card-text">{{ answer.text }}</p>
+                    <br><p class="card-text">
+                        <small class="text-muted">
+                            {{ answer.author }} - {{ answer.published_date }}
+                        </small>
+                    </p>
+                    {% if answer.image %}
+                    <br><img src="{{ answer.image.image.url }}" class="img-fluid"/>
+
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="card mb-3">
+                <form class="text-center mt-2" method="post" action="/create_answer" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ answer_form.as_p }}
+                    <input type="hidden" name="pk" value="{{ question.pk }}">
+                    <input type="file" name="photo">
+                    <br><input class="btn btn-primary m-2" type="submit" value="Відповісти">
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function vote (model, action, id) {
+            fetch(`http://localhost:8000/${model}/${action}/${id}/`)
+        }
+    </script>
+{% endblock %}

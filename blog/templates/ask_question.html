@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Ask question {% endblock %}
+
+{% block content %}
+    <div class="card mb-3">
+        <h4 class="text-center mt-2">Задати питання</h4>
+        <form class="text-center mt-2" method="post" action="/create_question" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Тема</label>
+                {{ question_form.title }}
+            </div>
+            <div class="form-group">
+                <label>Текст</label>
+                {{ question_form.text }}
+            </div>
+            <div class="form-group">
+                <label>Категорія</label>
+                {{ question_form.category }}
+            </div>
+            <input type="file" name="photo">
+            <br> <input class="btn btn-primary m-2" type="submit" value="Запитати">
+        </form>
+    </div>
+{% endblock %}
